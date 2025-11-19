@@ -1,44 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Blocked</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #0d1b2a;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-        .box {
-            background: #1b263b;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.4);
-            max-width: 400px;
-        }
-        h1 {
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
-        p {
-            opacity: 0.9;
-            font-size: 16px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dexxter Countdown</title>
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --panel: #111318;
+      --gold: #d4af37;
+      --text: #ffffff;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      background: var(--panel);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.4);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--gold);
+    }
+    .timer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    .box {
+      background: #0b0c10;
+      padding: 20px;
+      border-radius: 12px;
+      width: 100%;
+      margin: 0 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .number {
+      font-size: 2rem;
+      color: var(--gold);
+      font-weight: bold;
+    }
+    .label {
+      font-size: .9rem;
+      opacity: 0.8;
+    }
+  </style>
 </head>
 <body>
-    <div class="box">
-        <h1>Access Blocked</h1>
-        <p>This website is currently unavailable.</p>
-        <p>Please try again later.</p>
+  <div class="container">
+    <h1>Countdown to December 1st</h1>
+    <div class="timer" id="timer">
+      <div class="box"><div class="number" id="days">0</div><div class="label">Days</div></div>
+      <div class="box"><div class="number" id="hours">0</div><div class="label">Hours</div></div>
+      <div class="box"><div class="number" id="minutes">0</div><div class="label">Minutes</div></div>
+      <div class="box"><div class="number" id="seconds">0</div><div class="label">Seconds</div></div>
     </div>
+  </div>
+
+  <script>
+    function updateCountdown() {
+      const target = new Date('December 1, 2025 00:00:00').getTime();
+      const now = Date.now();
+      const diff = target - now;
+
+      if (diff <= 0) {
+        document.getElementById('timer').innerHTML = '<h2 style="color: var(--gold);">The day has arrived!</h2>';
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('days').textContent = d;
+      document.getElementById('hours').textContent = h;
+      document.getElementById('minutes').textContent = m;
+      document.getElementById('seconds').textContent = s;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
 </body>
 </html>
